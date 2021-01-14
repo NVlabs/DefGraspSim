@@ -1,0 +1,111 @@
+# Copyright (c) 2020 NVIDIA Corporation
+
+# Permission is hereby granted, free of charge, to any person obtaining
+# a copy of this software and associated documentation files (the "Software"),
+# to deal in the Software without restriction, including without limitation
+# the rights to use, copy, modify, merge, publish, distribute, sublicense,
+# and/or sell copies of the Software, and to permit persons to whom the
+# Software is furnished to do so, subject to the following conditions:
+
+# The above copyright notice and this permission notice shall be included
+# in all copies or substantial portions of the Software.
+
+# THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+# IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+# FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL
+# THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR
+# OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
+# ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+# OTHER DEALINGS IN THE SOFTWARE.
+
+#######################################################
+## KEEP ITEMS IN ALPHABETICAL ORDER WITHIN THEIR LIST #
+#######################################################
+
+####################
+# Git LFS Attributes
+####################
+
+# Mesh files
+# ----------
+# .blend - contain all objects, textures, sounds, images, effects, and scenes used in an animation
+*.[bB][lL][eE][nN][dD] filter=lfs diff=lfs merge=lfs -text
+# .dae - COLLADA is an interchange file format for interactive 3D applications
+*.[dD][aA][eE] filter=lfs diff=lfs merge=lfs -text
+# .mtl - is a companion file format to . OBJ containing material properties
+*.[mM][tT][lL] filter=lfs diff=lfs merge=lfs -text
+# .obj - standard 3D image format
+*.[oO][bB][jJ] filter=lfs diff=lfs merge=lfs -text
+# .tet - textease template
+*.[tT][eE][tT] filter=lfs diff=lfs merge=lfs -text
+# .stl - native to the stereolithography CAD software created by 3D Systems
+*.[sS][tT][lL] filter=lfs diff=lfs merge=lfs -text
+# .vtk - VTK data file format
+*.[vV][tT][kK] filter=lfs diff=lfs merge=lfs -text
+
+# Scene description
+# ----------
+# .usda/.usdc - Universal Scene Description in ASCII (.usda) or binary (.usdc) format.
+*.[uU][sS][dD][aAcC] filter=lfs diff=lfs merge=lfs -text
+
+# Audio files
+# -----------
+# .wav - audio file format created by Microsoft
+*.[wW][aA][vV] filter=lfs diff=lfs merge=lfs -text
+
+# Image files
+# -----------
+# .avi - an Audio Video Interleave file
+*.[aA][vV][iI] filter=lfs diff=lfs merge=lfs -text
+# .bmp - bitmap image file or device independent bitmap file format
+*.[bB][mM][pP] filter=lfs diff=lfs merge=lfs -text
+# .fig - file contains a figure created by The MathWorks MATLAB
+*.[fF][iI][gG] filter=lfs diff=lfs merge=lfs -text
+# .gif - image file stored in the Graphics Interchange Format (GIF)
+*.[gG][iI][fF] filter=lfs diff=lfs merge=lfs -text
+# .jpeg, .jpg - lossy graphics file
+*.[jJ][pP][eE][gG] filter=lfs diff=lfs merge=lfs -text
+*.[jJ][pP][gG] filter=lfs diff=lfs merge=lfs -text
+# .png - image file stored in the Portable Network Graphic (PNG) format
+*.[pP][nN][gG] filter=lfs diff=lfs merge=lfs -text
+# .pdf - Portable Document Format (PDF) file
+*.[pP][dD][fF] filter=lfs diff=lfs merge=lfs -text
+# .odg - OpenDocument Graphic file format used by Oracle's OpenOffice.org Draw
+*.[oO][dD][gG] filter=lfs diff=lfs merge=lfs -text
+# .tga - raster graphic format designed by Truevision
+*.[tT][gG][aA] filter=lfs diff=lfs merge=lfs -text
+
+# Video files
+# -----------
+# .mkl - Matroska Video file
+*.[mM][kK][lL] filter=lfs diff=lfs merge=lfs -text
+
+# Data files
+# ----------
+# .bag - ROS log file
+*.[bB][aA][gG] filter=lfs diff=lfs merge=lfs -text
+# .bin - general binary file
+*.[bB][iI][nN] filter=lfs diff=lfs merge=lfs -text
+# .csv - comma-separated values file
+*.[cC][sS][vV] filter=lfs diff=lfs merge=lfs -text
+# .dat - generic data file created by a specific application
+*.[dD][aA][tT] filter=lfs diff=lfs merge=lfs -text
+# .h5 - Hierarchical Data Format (HDF) file
+*.[hH][5] filter=lfs diff=lfs merge=lfs -text
+# .ipynb - notebook document used by Jupyter Notebook
+*.[iI][pP][yY][nN][bB] filter=lfs diff=lfs merge=lfs -text
+# .mat - binary data container format that the MATLAB program uses
+*.[mM][aA][tT] filter=lfs diff=lfs merge=lfs -text
+# .pkl - Python pickle file
+*.[pP][kK][lL] filter=lfs diff=lfs merge=lfs -text
+# .pth - PyTorch file
+*.[pP][tT[hH] filter=lfs diff=lfs merge=lfs -text
+# .slx - compressed file that contains model information in XML format
+*.[sS][lL][xX] filter=lfs diff=lfs merge=lfs -text
+
+
+# Files to exclude from Git LFS that fit at least one of the patterns above
+# -------------------------------------------------------------------------
+# Images used in the README.md file
+readme_content/16_directions.png filter= diff= merge= -text
+readme_content/banana_reorient.gif filter= diff= merge= -text
