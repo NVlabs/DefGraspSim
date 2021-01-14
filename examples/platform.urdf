@@ -1,0 +1,37 @@
+<?xml version="1.0" ?>
+<robot name="platform">
+
+	<link name="world">
+	</link>
+
+	<joint name="height_joint" type="prismatic">
+		<parent link="world"/>
+		<child link="platform"/>
+		<origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+		<axis xyz="0 0 1"/>
+		<dynamics damping="10.0" friction="0.0"/>
+		<limit lower="-0.5" upper="0.5" velocity="1e9" effort="1e9"/>
+	</joint>
+
+
+	<link name="platform">
+		<visual>
+			<origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+			<geometry>
+				<mesh filename="bigger_platform.obj"/>
+			</geometry>
+		</visual>
+		<collision>
+			<origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+			<geometry>
+				<mesh filename="bigger_platform.obj"/>
+			</geometry>
+			
+		</collision>
+		<inertial>
+			<origin rpy="0.0 0.0 0.0" xyz="0.0 0.0 0.0"/>
+			<mass value="0.00284840"/>
+			<inertia ixx="1.02245818e-7" iyy="1.02245818e-7" izz="2.02592700e-7" ixy="0.0" ixz="0.0" iyz="0.0"/>
+		</inertial>
+	</link>
+</robot>

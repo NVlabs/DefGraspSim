@@ -1,0 +1,13 @@
+<robot name="robot">
+    <link name="soft_object">
+        <fem>
+            <origin rpy="0.0 0.0 0.0" xyz="0 0 0" />
+            <density value="1000" />
+            <youngs value="2e5" />
+            <poissons value="0.3" />
+            <damping value="0.0" />
+            <attachDistance value="0.0" />
+            <tetmesh filename="rectangle.tet" />
+        </fem>
+    </link>
+</robot>
