@@ -20,11 +20,12 @@
 
 # NOTE: It is assumed that this script will run from the root of the project.
 
-# This script creates a list of all the files that are currently being tracked by Git LFS. It moves
-# each of those files to a matching directory in the `drive_files` directory and creates a symlink
-# from the original location to this new location. It then creats a zip file of the entire
-# `drive_files` directory, which then can be upload to Google Drive and later accessed by the end
-# user.
+# This script creates a list of all the files that are currently being tracked
+# by Git LFS. It moves each of those files to a matching directory in the
+# `drive_files` directory and creates a symlink from the original location to
+# this new location. It then creates a zip file of the entire `drive_files`
+# directory, which then can be upload to Google Drive and later accessed by the
+# end user.
 
 GIT_LFS_FILES_TXT=git_lfs_files.txt # Temp file to store the list of Git LFS files
 DEST_FOLDER=drive_files # Folder where files will be moved to
@@ -33,8 +34,8 @@ ZIP_FILE=$DEST_FOLDER.zip
 # Get a list of the current Git LFS files and store them in a text file
 git lfs ls-files | awk '{ print $3 }' > $GIT_LFS_FILES_TXT
 
-# Loop over each Git LFS file and move the file to the `drive_files` folder and create a symlink from
-# the original location to the new location
+# Loop over each Git LFS file, moving each file to the `drive_files` folder and
+# creating a symlink from the original location to the new location
 for a_file in $(cat $GIT_LFS_FILES_TXT); do
   mkdir -p $(dirname $DEST_FOLDER/$a_file)
   cp $a_file $DEST_FOLDER/$a_file
@@ -64,7 +65,7 @@ echo ""
 echo "=================================================="
 echo "NEXT STEPS:"
 echo ""
-echo "Upload this zip file to Google drive at this location:"
+echo "Upload this zip file to Google drive folder at this location:"
 echo "https://drive.google.com/drive/u/1/folders/1fxkK8qblET5ec26NotgNUxuXD9_Pj2RL"
 echo ""
 echo "Get the file ID"

@@ -20,6 +20,7 @@
 """Helper functions to calculate mesh-based metrics."""
 
 import numpy as np
+from scipy.signal import butter, filtfilt
 
 
 def get_strain_energy_of_element(ts, ti, particle_state_tensor, youngs):
@@ -109,3 +110,15 @@ def get_tet_based_metrics(gym, sim, envs, env_index, particle_state_tensor,
 
     vm_stresses = get_stresses_only(gym, sim, envs, env_index, particle_state_tensor)
     return vm_stresses, total_strain_energy, total_volume, weighted_centroid
+
+
+def butter_lowpass_filter(data):
+    """Low-pass filter the dynamics data."""
+    fs = 20
+    cutoff = 0.05
+    nyq = 0.5 * fs
+    order = 1
+    normal_cutoff = cutoff / nyq
+    b, a = butter(order, normal_cutoff, btype='low', analog=False)
+    y = filtfilt(b, a, data, axis=0)
+    return y

@@ -1,0 +1,58 @@
+
+
+use_viewer: False
+replace_existing_results: False
+write_results: True
+
+sim_params:
+  platform_height: 1.0
+
+tags:
+  results_storage_tag: 'mytag'
+
+dir:
+  assets_dir: 'examples'
+  franka_urdf: 'franka_description/robots/franka_panda_fem_simple_v4_with_arm.urdf'
+  results_dir: 'results'
+
+franka:
+  num_joints: 16
+  gripper_tip_z_offset: 0.112
+  gripper_tip_y_offset: 0.00444222
+  joint_damping: 100
+
+timeout:
+  squeeze_no_gravity: 1000
+  other_modes: 700
+
+lp_filter:
+  running_window_size: 50
+  averaging_window: 10 
+
+force_control:
+  Kp: 0.002
+  min_torque: -0.05
+
+squeeze_no_gravity:
+  num_dp: 50
+  torque_step_period: 10
+  soft_object_torque_step: 0.3
+  near_rigid_object_torque_step: 0.15
+  soft_object_F_des: 15
+  near_rigid_object_F_des: 30
+
+reorient:
+  ang_vel: 3
+
+lin_acc:
+  max_acc: 50
+  jerk: 100
+
+ang_acc:
+  travel_acc: 3
+  min_travel_speed: 0.1
+  max_travel_speed: 0.5
+  max_acc: 1250
+  jerk: 2500
+
+

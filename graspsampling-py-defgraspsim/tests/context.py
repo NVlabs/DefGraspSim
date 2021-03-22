@@ -17,28 +17,10 @@
 # OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
+"""Set the proper path to the graspsampling module."""
 
-# NOTE: It is assumed that this script will run from the root of the project.
+import graspsampling
+import os
+import sys
 
-# This script will create symlinks between files in the `drive_files` directory
-# and the corresponding files in the project.
-
-FILE_LIST=drive_files_list.txt
-DRIVE_FILES_DIR=drive_files
-
-# Get the current list of all the files in the `drive_files` directory
-find $DRIVE_FILES_DIR -type f > $FILE_LIST
-
-# Loop over each file and create a symlink in the proper location within the project directory
-# structure.
-for a_file in $(cat $FILE_LIST); do
-  dest_file=${a_file#$DRIVE_FILES_DIR/}
-  touch $dest_file
-  realtive_path=$(realpath --relative-to=$(dirname $dest_file) $a_file)
-  rm $dest_file
-  echo "Running: ln -s $realtive_path $dest_file"
-  ln -s $realtive_path $dest_file
-done
-
-# Remove FILE_LIST file
-rm $FILE_LIST
+sys.path.insert(0, os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))

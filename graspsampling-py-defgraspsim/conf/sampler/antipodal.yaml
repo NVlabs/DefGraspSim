@@ -1,0 +1,5 @@
+sampler:
+  cls: graspsampling.sampling.AntipodalSampler
+  params:
+    friction_cone: 0.0
+    number_of_orientations: 6

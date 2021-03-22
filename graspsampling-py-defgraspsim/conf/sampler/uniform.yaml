@@ -1,0 +1,4 @@
+sampler:
+  cls: graspsampling.sampling.UniformSampler
+  params:
+    {}

@@ -1,0 +1,5 @@
+sampler:
+  cls: graspsampling.sampling.PolarCoordinateSampler
+  params:
+    step_size: 0.02
+    orientation_towards_com: 0.0

@@ -1,0 +1,18 @@
+defaults:
+  - sampler: grid
+
+object:
+  file: data/objects/banana.obj
+  scale: 0.01
+
+gripper:
+  cls: graspsampling.hands.PandaGripper
+  params:
+    configuration: 0.04
+
+output:
+  cls: graspsampling.io.JsonWriter
+  params:
+    file: resulting_grasps.json
+
+number_of_grasps: 100

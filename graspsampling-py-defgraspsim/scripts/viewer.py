@@ -17,28 +17,37 @@
 # OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
+"""Create visual scene for grasps."""
 
-# NOTE: It is assumed that this script will run from the root of the project.
+from graspsampling import visualize, io, utilities
 
-# This script will create symlinks between files in the `drive_files` directory
-# and the corresponding files in the project.
+import os
+import argparse
 
-FILE_LIST=drive_files_list.txt
-DRIVE_FILES_DIR=drive_files
 
-# Get the current list of all the files in the `drive_files` directory
-find $DRIVE_FILES_DIR -type f > $FILE_LIST
+def make_parser():
+    """Create parser for grasp file and mesh file."""
+    parser = argparse.ArgumentParser(description='Visualize grasp file.',
+                                     formatter_class=argparse.ArgumentDefaultsHelpFormatter)
+    parser.add_argument('input', type=str,
+                        help='Input file name.')
+    parser.add_argument('--mesh_root_dir', type=str, default='.',
+                        help='Root folder for mesh file names.')
+    return parser
 
-# Loop over each file and create a symlink in the proper location within the project directory
-# structure.
-for a_file in $(cat $FILE_LIST); do
-  dest_file=${a_file#$DRIVE_FILES_DIR/}
-  touch $dest_file
-  realtive_path=$(realpath --relative-to=$(dirname $dest_file) $a_file)
-  rm $dest_file
-  echo "Running: ln -s $realtive_path $dest_file"
-  ln -s $realtive_path $dest_file
-done
 
-# Remove FILE_LIST file
-rm $FILE_LIST
+if __name__ == "__main__":
+    parser = make_parser()
+    args = parser.parse_args()
+
+    # Load file
+    grasp_dict = io.load(args.input)
+
+    # Load object mesh
+    object_mesh = utilities.instantiate_mesh(
+        file=os.path.join(
+            args.mesh_root_dir,
+            grasp_dict['object']),
+        scale=grasp_dict['object_scale'])
+
+    visualize.create_scene(object_mesh, gripper_name=grasp_dict['gripper'], **grasp_dict).show()

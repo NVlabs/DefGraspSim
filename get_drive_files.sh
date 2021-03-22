@@ -23,33 +23,52 @@
 # This script downloads the `drive_files` directory zip file from Google Drive and upzips the
 # contents to the proper location.
 
-# NOTE(roflaherty): To update drive_files.zip do the following:
+# NOTE(roflaherty): To update drive_files_v#.#.zip do the following:
 #
-# * Run the following command,
+# * Run the `move_git_lfs_files.sh` script to update the `drive_files`
+#   directory with any new Git LFS files.
 #
-#   zip -r drive_files.zip drive_files
+# * Create the zip file with the correct version number (should match the code
+#   release version number). Something like:,
 #
-# * Upload the zip file to google drive,
+#   zip -r drive_files_v1.0.zip drive_files
 #
-#   Upload to https://drive.google.com/drive/folders/1fxkK8qblET5ec26NotgNUxuXD9_Pj2RL?usp=sharing
+# * Upload the zip file to google drive folder.
 #
-# * Change the name of file to have the correct version number (should match code release version number).
+#   Upload to
+#   https://drive.google.com/drive/folders/1fxkK8qblET5ec26NotgNUxuXD9_Pj2RL?usp=sharing
 #
-# * Change the permissions of the file to "Anyone with the link" by right-clicking on the file and
-#   selecting "Get link"
+# * Change the permissions of the file in google drive to "Anyone with the
+#   link" by right-clicking on the file and selecting "Get link"
 #
 # * Update the `FILE_ID` variable below (extract from the public google drive link).
 #
-#   If the link to the file is https://drive.google.com/file/d/1pFv9rsaj-eZp9VQt654i0HgfdXv3-LuD/view?usp=sharing
+#   If the link to the file is
+#   https://drive.google.com/file/d/1pFv9rsaj-eZp9VQt654i0HgfdXv3-LuD/view?usp=sharing
 #   Then file ID is 1pFv9rsaj-eZp9VQt654i0HgfdXv3-LuD
 
-FILE_ID=1pFv9rsaj-eZp9VQt654i0HgfdXv3-LuD
 
-# Install wget and unzip
-sudo apt install wget unzip
+# Version 1.1
+FILE_ID=1WqELmrv35Mlng2ueaGXvNYH3VqiBTymb
+
+# Version 1.0
+# FILE_ID=1pFv9rsaj-eZp9VQt654i0HgfdXv3-LuD
+
+
+# Check if wget and unzip are installed, if not exit
+WGET_OK=$(dpkg-query -W -f='${Status}' wget 2>/dev/null | grep -c "ok installed")
+UNZIP_OK=$(dpkg-query -W -f='${Status}' unzip 2>/dev/null | grep -c "ok installed")
+if [ $WGET_OK -eq 0 ] || [ $UNZIP_OK -eq 0 ]; then
+  echo "ERROR: wget and/or unzip are not installed. Install with the following command, then run this script again."
+  echo "sudo apt install wget unzip"
+  exit 1
+fi
 
 # Download zip file from Google Drive
 wget --no-check-certificate -O drive_files.zip "https://drive.google.com/uc?export=download&id=$FILE_ID"
 
 # Unzip zip file contents to `./drive_files`
 unzip drive_files.zip -d .
+
+# Remove zip file
+rm drive_files.zip

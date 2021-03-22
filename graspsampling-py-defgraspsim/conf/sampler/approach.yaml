@@ -1,0 +1,5 @@
+sampler:
+  cls: graspsampling.sampling.SurfaceApproachSampler
+  params:
+    surface_normal_cone: 0.0
+    approach_cone: 0.0

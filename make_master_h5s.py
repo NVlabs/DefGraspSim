@@ -25,11 +25,21 @@ import shutil
 import h5py
 import numpy as np
 
+import argparse
+
+OBJ_RESULTS_DIR = ''
+
+# Create command line flag options
+parser = argparse.ArgumentParser(description='Options')
+parser.add_argument('--dir', required=True, help="Folder name for object results")
+args = parser.parse_args()
+
+if args.dir:
+    OBJ_RESULTS_DIR = args.dir
+
 
 # Set this to the results directory for the object of interest.
-OBJ_RESULTS_DIR = "results/rectangle_v2"
-
-modes = ["reorient", "pickup", "twist", "shake"]
+modes = ["reorient", "pickup", "twist", "shake", "squeeze_no_gravity"]
 all_moduli = os.listdir(OBJ_RESULTS_DIR)
 for mod in all_moduli:
     results_dir = os.path.join(OBJ_RESULTS_DIR, mod)

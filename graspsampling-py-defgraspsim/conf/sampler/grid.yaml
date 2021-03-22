@@ -1,0 +1,5 @@
+sampler:
+  cls: graspsampling.sampling.GridSampler
+  params:
+    resolution_xyz: 0.02
+    resolution_orientation: 576

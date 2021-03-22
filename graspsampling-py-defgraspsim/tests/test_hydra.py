@@ -17,28 +17,30 @@
 # OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
+"""Test if config files are imported correctly."""
 
-# NOTE: It is assumed that this script will run from the root of the project.
+import hydra
+from omegaconf import DictConfig
 
-# This script will create symlinks between files in the `drive_files` directory
-# and the corresponding files in the project.
+from context import graspsampling
+from graspsampling import utilities, sampling
 
-FILE_LIST=drive_files_list.txt
-DRIVE_FILES_DIR=drive_files
 
-# Get the current list of all the files in the `drive_files` directory
-find $DRIVE_FILES_DIR -type f > $FILE_LIST
+@hydra.main(config_path='../conf', config_name="config")
+def my_app(cfg: DictConfig) -> None:
+    """Test if config files are imported correctly."""
+    print(cfg.pretty())
 
-# Loop over each file and create a symlink in the proper location within the project directory
-# structure.
-for a_file in $(cat $FILE_LIST); do
-  dest_file=${a_file#$DRIVE_FILES_DIR/}
-  touch $dest_file
-  realtive_path=$(realpath --relative-to=$(dirname $dest_file) $a_file)
-  rm $dest_file
-  echo "Running: ln -s $realtive_path $dest_file"
-  ln -s $realtive_path $dest_file
-done
+    object_mesh = utilities.instantiate_mesh(**cfg.object)
+    gripper = hydra.utils.instantiate(cfg.gripper)
 
-# Remove FILE_LIST file
-rm $FILE_LIST
+    sampler = hydra.utils.instantiate(cfg.sampler, gripper=gripper, object_mesh=object_mesh)
+    results = sampling.collision_free_grasps(gripper, object_mesh, sampler, cfg.number_of_grasps)
+
+    output = hydra.utils.instantiate(cfg.output)
+    output.write(results)
+
+
+if __name__ == "__main__":
+    # load configuration via hydra
+    my_app()

@@ -24,7 +24,7 @@
 
 # Git LFS files stored in Drive
 drive_files/
-drive_files.zip
+*.zip
 
 # Results related
 results

@@ -269,7 +269,7 @@
 		<child link="panda_left_finger_rigid"/>
 		<axis xyz="0 1 0"/>
 		<dynamics damping="100.0" friction="0.0"/>
-    		<limit lower="0.0" upper="0.04" velocity="1e9" effort="1e9"/>
+    		<limit lower="-0.005" upper="0.04" velocity="1e9" effort="1e9"/>
 	</joint>
 
 	<joint name="panda_right_finger_joint" type="prismatic">
@@ -278,7 +278,7 @@
 		<child link="panda_right_finger_rigid"/>
 		<axis xyz="0 -1 0"/>
 		<dynamics damping="100.0" friction="0.0"/>
-    		<limit lower="0.0" upper="0.04" velocity="1e9" effort="1e9"/>
+    		<limit lower="-0.005" upper="0.04" velocity="1e9" effort="1e9"/>
 	</joint>
 
 	<link name="panda_left_finger_rigid"> 

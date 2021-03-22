@@ -17,28 +17,34 @@
 # OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE,
 # ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
 # OTHER DEALINGS IN THE SOFTWARE.
+"""Samples grasps on a test object."""
 
-# NOTE: It is assumed that this script will run from the root of the project.
+from context import graspsampling
 
-# This script will create symlinks between files in the `drive_files` directory
-# and the corresponding files in the project.
+from graspsampling import sampling, utilities, hands
 
-FILE_LIST=drive_files_list.txt
-DRIVE_FILES_DIR=drive_files
+import logging
 
-# Get the current list of all the files in the `drive_files` directory
-find $DRIVE_FILES_DIR -type f > $FILE_LIST
 
-# Loop over each file and create a symlink in the proper location within the project directory
-# structure.
-for a_file in $(cat $FILE_LIST); do
-  dest_file=${a_file#$DRIVE_FILES_DIR/}
-  touch $dest_file
-  realtive_path=$(realpath --relative-to=$(dirname $dest_file) $a_file)
-  rm $dest_file
-  echo "Running: ln -s $realtive_path $dest_file"
-  ln -s $realtive_path $dest_file
-done
+def test_sampling(cls_sampler=graspsampling.sampling.UniformSampler, number_of_grasps=100):
+    """Sample grasps on a test object."""
+    gripper = hands.create_gripper('panda')
 
-# Remove FILE_LIST file
-rm $FILE_LIST
+    # Load object
+    fname_object = 'data/objects/banana.obj'
+    logging.info("Loading", fname_object)
+    test_object = utilities.instantiate_mesh(file=fname_object, scale=0.01)
+    logging.info("Extents of loaded mesh:", test_object.extents)
+
+    # Instantiate and run sampler
+    sampler = cls_sampler(gripper, test_object)
+    results = sampler.sample(number_of_grasps)
+
+    assert('poses' in results)
+    assert(len(results['poses']) == number_of_grasps)
+
+    return gripper, test_object, results
+
+
+if __name__ == "__main__":
+    test_sampling()
