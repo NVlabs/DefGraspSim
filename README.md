@@ -17,7 +17,8 @@ Example execution of a reorient test on a banana starting from when the desired 
 ## Clone Repo
 Clone the repository with
 ```
-git clone https://gitlab-master.nvidia.com/srl/deformable_object_grasping.git
+git clone git@github.com:NVlabs/DefGraspSim.git
+
 ```
 
 ## Download necessary files from drive
